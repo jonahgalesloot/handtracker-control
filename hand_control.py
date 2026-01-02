@@ -11,9 +11,11 @@ import mediapipe as mp
 import math
 import keyboard  # For global keybinds
 import easyocr
+from pprint import pprint
 
 # Initialize EasyOCR reader (using English, no GPU for lightweight operation)
-DEBUG_DISPLAY = True  # Set to True to show a debug window for the drawing image.
+DEBUG_DISPLAY = False  # Set to True to show a debug window for the drawing image.
+DEBUG_ZMQ = False  # When True, print all incoming ZeroMQ message contents to console for debugging
 reader = easyocr.Reader(['en'], gpu=False)
 
 # Start the hand tracker as a subprocess.
@@ -199,6 +201,33 @@ def main():
 
         try:
             parts = socket_sub.recv_multipart()
+            # ZMQ debug: optionally print raw parts and decoded JSON/image sizes
+            if DEBUG_ZMQ:
+                try:
+                    print('--- ZMQ MESSAGE START ---')
+                    print('parts lengths:', [len(p) for p in parts])
+                    if len(parts) >= 1:
+                        try:
+                            json_data_dbg = parts[0].decode('utf-8')
+                            print('JSON payload string:')
+                            print(json_data_dbg)
+                            try:
+                                jd = json.loads(json_data_dbg)
+                                print('Decoded JSON:')
+                                pprint(jd)
+                            except Exception as e:
+                                print('JSON decode error:', e)
+                        except Exception as e:
+                            print('Error decoding JSON part:', e)
+                    if len(parts) >= 2:
+                        try:
+                            print('Image bytes length:', len(parts[1]))
+                        except Exception as e:
+                            print('Error accessing image part:', e)
+                    print('--- ZMQ MESSAGE END ---')
+                except Exception as e:
+                    print('ZMQ debug print error:', e)
+
             if len(parts) != 2:
                 continue
 
