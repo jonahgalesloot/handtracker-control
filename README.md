@@ -53,6 +53,10 @@ python hand_control.py
 
 - Put your ring finger and thumb together to enter drawing mode. The program records index-tip positions while that gesture is held, builds a stroke image, preprocesses it, and runs EasyOCR to recognize characters.
 - The recognized character is typed automatically via `pyautogui`.
+  
+**To see debug outputs**
+
+- Set the corresponding debug constant in `hand_control.py` to True; `DEBUG_DISPLAY` for drawn characters and `DEBUG_ZMQ` for hand landmark coordinates
 
 
 
