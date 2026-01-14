@@ -1,6 +1,6 @@
 **Hand Tracking & Handwriting OCR**
 
-- **Purpose:** Real-time hand-tracking cursor + handwriting input using MediaPipe and EasyOCR. Captures hand landmarks from the camera, maps index finger motion to cursor movement, supports click/scroll gestures, and converts drawn handwriting into text.
+- **Purpose:** Inspired by Domain Expansions in Jujutsu Kaisen, this is a real-time hand-tracking cursor + handwriting input using MediaPipe and EasyOCR. Captures hand landmarks from the camera, maps index finger motion to cursor movement, supports click/scroll gestures, and converts drawn handwriting into text.
 
 **Included Files**
 
@@ -61,3 +61,4 @@ python hand_control.py
 
 
 -- End of README --
+
